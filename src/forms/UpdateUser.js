@@ -14,6 +14,20 @@ class UpdateUser extends Component {
       [e.target.name]: e.target.value,
     });
   };
+  componentDidMount = async () => {
+      const {id} = this.props.match.params;
+
+      const response = await axios.get(`http://localhost:3000/users/${id}`);
+      
+      const {name,department,salary} = response.data;
+
+      this.setState({
+          name,
+          department,
+          salary
+      })
+  }
+  
 
   updateUser = async (dispatch, e) => {
 
