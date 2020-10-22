@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "unique-5",
+      "name": "Mertcan Veldet",
+      "salary": "8000 TL",
+      "department": "Kullanıcı Deneyimi & Tasarım"
+    },
+    {
+      "id": "unique-6",
+      "name": "Seda Fakılı",
+      "salary": "7000 TL",
+      "department": "Kullanıcı Deneyimi & Tasarım"
+    },
+    {
+      "name": "Çağkan Yüksel",
+      "department": "IT",
+      "salary": "20000",
+      "id": "fYOpQzo"
+    },
+    {
+      "name": "Hazal Şendoğan ",
+      "department": "IT",
+      "salary": "3250",
+      "id": "opIB6Vf"
+    }
+  ]
+}
