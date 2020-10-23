@@ -7,6 +7,16 @@ class UpdateUser extends Component {
     name: "",
     department: "",
     salary: "",
+    error:false
+  };
+
+  validateForm = () => {
+    const { name, salary, department } = this.state;
+
+    if (name === "" || salary === "" || department === "") {
+      return false;
+    }
+    return true;
   };
 
   changeInput = (e) => {
@@ -15,30 +25,51 @@ class UpdateUser extends Component {
     });
   };
   componentDidMount = async () => {
-      const {id} = this.props.match.params;
+    const { id } = this.props.match.params;
 
-      const response = await axios.get(`http://localhost:3000/users/${id}`);
-      
-      const {name,department,salary} = response.data;
+    const response = await axios.get(`http://localhost:3000/users/${id}`);
 
-      this.setState({
-          name,
-          department,
-          salary
-      })
-  }
-  
+    const { name, department, salary } = response.data;
+
+    this.setState({
+      name,
+      department,
+      salary,
+    });
+  };
 
   updateUser = async (dispatch, e) => {
-
     e.preventDefault();
     //Update User
-    console.log("Update User");
-   
+    const { name, department, salary } = this.state;
+
+    const updatedUser = {
+      name,
+      salary,
+      department,
+    };
+
+    if (!this.validateForm()) {
+      this.setState({
+        error: true,
+      });
+      return;
+    }
+
+    const { id } = this.props.match.params;
+
+    const response = await axios.put(
+      `http://localhost:3000/users/${id}`,
+      updatedUser
+    );
+    dispatch({ type: "UPDATE_USER", payload: response.data });
+
+    //Redirecting
+    this.props.history.push("/");
   };
 
   render() {
-    const { name, department, salary } = this.state;
+    const { name, department, salary,error } = this.state;
     return (
       <UserConsumer>
         {(value) => {
@@ -46,13 +77,16 @@ class UpdateUser extends Component {
           return (
             <div className="col-md-8 mt-5">
               <div className="card">
-                <div
-                  className="card-header"
-                >
+                <div className="card-header">
                   <h4>Update User Form</h4>
                 </div>
                 <div className="card-body">
-                  <form onSubmit={this.updateUser.bind(this,dispatch)}>
+                  {error ? (
+                    <div className="alert alert-danger">
+                      Lütfen bilgilerinizi giriniz
+                    </div>
+                  ) : null}
+                  <form onSubmit={this.updateUser.bind(this, dispatch)}>
                     <div className="form-group">
                       <label htmlFor="name">Name</label>
                       <input

@@ -1,10 +1,10 @@
 {
   "users": [
     {
-      "id": "unique-5",
       "name": "Mertcan Veldet",
-      "salary": "8000 TL",
-      "department": "Kullanıcı Deneyimi & Tasarım"
+      "salary": "8500 TL",
+      "department": "Kullanıcı Deneyimi & Tasarım",
+      "id": "unique-5"
     },
     {
       "id": "unique-6",
@@ -23,6 +23,24 @@
       "department": "IT",
       "salary": "3250",
       "id": "opIB6Vf"
+    },
+    {
+      "name": "Hande Özkurtoğlu",
+      "salary": "10000",
+      "department": "Kullanıcı Deneyimi & Tasarım",
+      "id": "dHPr8jb"
+    },
+    {
+      "name": "Cansu Öztürk",
+      "department": "UX & Tasarım ",
+      "salary": "5000",
+      "id": "IRTHt-n"
+    },
+    {
+      "name": "Kerem Aktuğ",
+      "salary": "1258451,20",
+      "department": "IT",
+      "id": "JEc_hLn"
     }
   ]
 }

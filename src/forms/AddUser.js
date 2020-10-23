@@ -24,6 +24,16 @@ class AddUser extends Component {
     name: "",
     department: "",
     salary: "",
+    error: false,
+  };
+
+  validateForm = () => {
+    const { name, salary, department } = this.state;
+
+    if (name === "" || salary === "" || department === "") {
+      return false;
+    }
+    return true;
   };
 
   changeVisibility = (e) => {
@@ -38,11 +48,8 @@ class AddUser extends Component {
     });
   };
 
-  addUser = async (dispatch,e) => {
-
+  addUser = async (dispatch, e) => {
     e.preventDefault();
-
-    console.log("Test");
 
     const { name, department, salary } = this.state;
 
@@ -52,12 +59,21 @@ class AddUser extends Component {
       salary,
     };
 
-    const response = await axios.post("http://localhost:3000/users",newUser);
-    dispatch({ type: "ADD_USER", payload: newUser });
+    if (!this.validateForm()) {
+      this.setState({
+        error: true,
+      });
+      return;
+    }
+
+    const response = await axios.post("http://localhost:3000/users", newUser);
+    dispatch({ type: "ADD_USER", payload: response.data });
+
+    this.props.history.push("/");
   };
 
   render() {
-    const { visible, name, department, salary } = this.state;
+    const { visible, name, department, salary, error } = this.state;
     return (
       <UserConsumer>
         {(value) => {
@@ -78,8 +94,14 @@ class AddUser extends Component {
                   >
                     <h4>Add User Form</h4>
                   </div>
+
                   <div className="card-body">
-                    <form onSubmit={this.addUser.bind(this,dispatch)}>
+                    {error ? (
+                      <div className="alert alert-danger">
+                        Lütfen bilgilerinizi giriniz
+                      </div>
+                    ) : null}
+                    <form onSubmit={this.addUser.bind(this, dispatch)}>
                       <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <input
